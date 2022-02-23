@@ -216,11 +216,13 @@ const invite_employee = async (req, res) => {
     const employeeIdsArr = location.employees.map((id) => id.employee);
 
     // check if employee already belongs to the location
-    if (employeeIdsArr.includes(existingEmployee?._id))
-      return res.status(400).send({
-        success: false,
-        message: '이미 해당 매장의 직원으로 등록되어있습니다',
-      });
+    if (existingEmployee._id) {
+      if (employeeIdsArr.includes(existingEmployee._id))
+        return res.status(400).send({
+          success: false,
+          message: '이미 해당 매장의 직원으로 등록되어있습니다',
+        });
+    }
 
     const checkEmail = await Employee.checkIfEmailExist(email);
     if (checkEmail) {
