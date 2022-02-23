@@ -217,12 +217,10 @@ const invite_employee = async (req, res) => {
 
     // check if employee already belongs to the location
     if (employeeIdsArr.includes(existingEmployee?._id))
-      return res
-        .status(400)
-        .send({
-          success: false,
-          message: '이미 해당 매장의 직원으로 등록되어있습니다',
-        });
+      return res.status(400).send({
+        success: false,
+        message: '이미 해당 매장의 직원으로 등록되어있습니다',
+      });
 
     const checkEmail = await Employee.checkIfEmailExist(email);
     if (checkEmail) {
@@ -264,7 +262,8 @@ const invite_employee = async (req, res) => {
     await invite.save();
 
     sendInvitationEmail(name, email, location._id, invite);
-    return res.send({ name, email, location, invite });
+    console.log('dd');
+    return res.status(200).json({ name, email, location, invite });
   } catch (error) {
     res.status(500).send(error.toString());
   }
@@ -347,8 +346,6 @@ const update_employee_wage_status = async (req, res) => {
     res.status(500).send(error);
   }
 };
-
-
 
 module.exports = {
   // location

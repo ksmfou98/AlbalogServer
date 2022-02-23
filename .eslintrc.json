@@ -2,7 +2,12 @@
   "extends": ["prettier", "plugin:node/recommended"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+          "endOfLine": "auto"
+      }
+  ],
     "no-unused-vars": "warn",
     "no-underscore-dangle": "off",
     "no-console": "off",
